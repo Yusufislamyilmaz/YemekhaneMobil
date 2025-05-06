@@ -4,8 +4,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import PrivateRoute from './components/PrivateRoute';
 import { useAuth } from './contexts/AuthContext';
-import AdminPanel from './pages/AdminPanel';
 import MonthlyMenu from './pages/MonthlyMenu'; //  #7 - Aylık Menü
+import AdminPanel from './pages/AdminPanel'; //  #9 - Admin Paneli
 
 
 export default function App() {
@@ -57,10 +57,11 @@ export default function App() {
       </nav>
 
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/aylik" element={<MonthlyMenu />} /> 
-        <Route path="/login" element={<Login />} />
+        <Route path="/"      element={<Home />}    />
+        <Route path="/aylik" element={<MonthlyMenu />} />
+        <Route path="/login" element={<Login />}   />
         <Route path="/register" element={<Register />} />
+        {/* Admin Panel */}
         <Route element={<PrivateRoute allowed={['admin']} />}>
           <Route path="/admin" element={<AdminPanel />} />
         </Route>

@@ -13,11 +13,19 @@ export default function Home() {
 
   // Menü verisini çek
   useEffect(() => {
+    // Eğer admin panelden kaydedilmiş menü varsa önce onu al
+    const adminJson = localStorage.getItem('adminMenu-today');
+    if (adminJson) {
+      try {
+        setMenu(JSON.parse(adminJson));
+        setLoading(false);
+        return;
+      } catch {}
+    }
+
+    // Aksi hâlde statik JSON’dan çek
     fetch('/menu-today.json')
-      .then(res => {
-        if (!res.ok) throw new Error('Fetch failed');
-        return res.json();
-      })
+      .then(res => { if (!res.ok) throw new Error(); return res.json(); })
       .then(data => setMenu(data))
       .catch(() => setError('Menü yüklenirken bir hata oluştu.'))
       .finally(() => setLoading(false));
