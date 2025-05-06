@@ -6,6 +6,8 @@ import PrivateRoute from './components/PrivateRoute';
 import { useAuth } from './contexts/AuthContext';
 import MonthlyMenu from './pages/MonthlyMenu'; //  #7 - Aylık Menü
 import AdminPanel from './pages/AdminPanel'; //  #9 - Admin Paneli
+import Contact from './pages/Contact'; //  #10 - İletişim
+
 
 
 export default function App() {
@@ -38,6 +40,9 @@ export default function App() {
             <Link to="/register" style={{ color: '#fff', textDecoration: 'none', fontWeight: '500' }}>
               Kayıt Ol
             </Link>
+            <Link to="/contact"  style={{ color: '#fff', textDecoration: 'none', fontWeight: '500' }}>
+              İletişim
+            </Link>
           </>
         ) : (
           <button
@@ -65,6 +70,8 @@ export default function App() {
         <Route element={<PrivateRoute allowed={['admin']} />}>
           <Route path="/admin" element={<AdminPanel />} />
         </Route>
+        <Route path="/contact" element={<Contact />} />
+
       </Routes>
     </div>
   );
