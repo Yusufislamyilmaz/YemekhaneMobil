@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 
 export default function Login() {
   const { login } = useAuth();
@@ -25,6 +27,9 @@ export default function Login() {
       <br/>
       {err && <p style={{color:'red'}}>{err}</p>}
       <button>Giriş</button>
+      <p style={{ marginTop:8 }}>
+        Hesabın yok mu? <Link to="/register">Kayıt Ol</Link>
+      </p>
     </form>
   );
 }

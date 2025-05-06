@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">yemekapp</string>
+    <string name="title_activity_main">yemekapp</string>
+    <string name="package_name">com.sirnak.yemekhaneapp</string>
+    <string name="custom_url_scheme">com.sirnak.yemekhaneapp</string>
+</resources>
