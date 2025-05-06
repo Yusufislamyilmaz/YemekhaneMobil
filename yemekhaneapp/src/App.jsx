@@ -14,16 +14,46 @@ export default function App() {
 
   return (
     <div>
-      <nav style={{ padding:'8px 16px', background:'#1976d2', color:'#fff' }}>
-        <Link to="/" style={{color:'#fff', marginRight:12}}>Ana Sayfa</Link>
-        <Link to="/aylik" style={{ color:'#fff', marginLeft:12 }}>Aylık Menü</Link> 
-        {!user && (
+      <nav
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '1rem',
+          padding: '0.75rem 1.5rem',
+          background: '#1976d2',
+          color: '#fff',
+        }}
+      >
+        <Link to="/" style={{ color: '#fff', textDecoration: 'none', fontWeight: '500' }}>
+          Ana Sayfa
+        </Link>
+        <Link to="/aylik" style={{ color: '#fff', textDecoration: 'none', fontWeight: '500' }}>
+          Aylık Menü
+        </Link>
+        {!user ? (
           <>
-            <Link to="/login" style={{color:'#fff', marginRight:12}}>Giriş</Link>
-            <Link to="/register" style={{color:'#fff'}}>Kayıt Ol</Link>
+            <Link to="/login"    style={{ color: '#fff', textDecoration: 'none', fontWeight: '500' }}>
+              Giriş
+            </Link>
+            <Link to="/register" style={{ color: '#fff', textDecoration: 'none', fontWeight: '500' }}>
+              Kayıt Ol
+            </Link>
           </>
+        ) : (
+          <button
+            onClick={logout}
+            style={{
+              background: 'transparent',
+              border: '1px solid #fff',
+              color: '#fff',
+              padding: '0.25rem 0.75rem',
+              borderRadius: 4,
+              cursor: 'pointer',
+            }}
+          >
+            Çıkış
+          </button>
         )}
-        {user && <button onClick={logout}>Çıkış</button>}
       </nav>
 
       <Routes>
