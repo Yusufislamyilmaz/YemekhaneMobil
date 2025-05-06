@@ -5,6 +5,8 @@ import Register from './pages/Register';
 import PrivateRoute from './components/PrivateRoute';
 import { useAuth } from './contexts/AuthContext';
 import AdminPanel from './pages/AdminPanel';
+import MonthlyMenu from './pages/MonthlyMenu'; //  #7 - Aylık Menü
+
 
 export default function App() {
   const nav   = useNavigate();
@@ -14,6 +16,7 @@ export default function App() {
     <div>
       <nav style={{ padding:'8px 16px', background:'#1976d2', color:'#fff' }}>
         <Link to="/" style={{color:'#fff', marginRight:12}}>Ana Sayfa</Link>
+        <Link to="/aylik" style={{ color:'#fff', marginLeft:12 }}>Aylık Menü</Link> 
         {!user && (
           <>
             <Link to="/login" style={{color:'#fff', marginRight:12}}>Giriş</Link>
@@ -25,6 +28,7 @@ export default function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/aylik" element={<MonthlyMenu />} /> 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route element={<PrivateRoute allowed={['admin']} />}>
