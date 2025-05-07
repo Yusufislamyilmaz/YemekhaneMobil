@@ -1,5 +1,6 @@
 {
   "appId": "com.sirnak.yemekhaneapp",
-  "appName": "yemekapp",
+  "appName": "Şırnak Yemekhane",
+  "bundledWebRuntime": false,
   "webDir": "dist"
 }

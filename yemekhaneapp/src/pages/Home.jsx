@@ -1,19 +1,18 @@
 // src/pages/Home.jsx
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import StarRating from '../components/StarRating';
+import '../index.css';
 
 export default function Home() {
-  const [menu, setMenu]     = useState(null);
-  const [error, setError]   = useState('');
+  const [menu, setMenu]       = useState(null);
+  const [error, setError]     = useState('');
   const [loading, setLoading] = useState(true);
-
-  // ★ Feedback için state’ler ★
   const [rating, setRating]   = useState(0);
   const [comment, setComment] = useState('');
+  const commentRef           = useRef(null);
 
-  // Menü verisini çek
+  // Menü verisini çek (admin override veya statik)
   useEffect(() => {
-    // Eğer admin panelden kaydedilmiş menü varsa önce onu al
     const adminJson = localStorage.getItem('adminMenu-today');
     if (adminJson) {
       try {
@@ -22,16 +21,17 @@ export default function Home() {
         return;
       } catch {}
     }
-
-    // Aksi hâlde statik JSON’dan çek
     fetch('/menu-today.json')
-      .then(res => { if (!res.ok) throw new Error(); return res.json(); })
+      .then(res => {
+        if (!res.ok) throw new Error();
+        return res.json();
+      })
       .then(data => setMenu(data))
       .catch(() => setError('Menü yüklenirken bir hata oluştu.'))
       .finally(() => setLoading(false));
   }, []);
 
-  // Menü yüklendiğinde, LocalStorage’dan feedback’i çek
+  // Menü yüklendiğinde feedback’i yükle
   useEffect(() => {
     if (!menu) return;
     const key = `rating-${menu.date}`;
@@ -39,10 +39,17 @@ export default function Home() {
     setComment(localStorage.getItem(`${key}-comment`) || '');
   }, [menu]);
 
-  if (loading) return <div style={{ padding: 16 }}>Yükleniyor…</div>;
-  if (error)   return <div style={{ padding: 16, color: 'red' }}>{error}</div>;
+  // Textarea’yı içeriğe göre resize et
+  useEffect(() => {
+    if (commentRef.current) {
+      commentRef.current.style.height = 'auto';
+      commentRef.current.style.height = `${commentRef.current.scrollHeight}px`;
+    }
+  }, [comment]);
 
-  // Menü artık garanti var
+  if (loading) return <div className="home-loading">Yükleniyor…</div>;
+  if (error)   return <div className="home-error">{error}</div>;
+
   const key = `rating-${menu.date}`;
   const saveFeedback = () => {
     localStorage.setItem(key, rating);
@@ -51,64 +58,37 @@ export default function Home() {
   };
 
   return (
-    <div style={{ maxWidth: 600, margin: '0 auto', padding: 16 }}>
-      <h1 style={{ marginBottom: 12 }}>
-        {menu.date} Tarihli Menümüz
-      </h1>
-      <ul style={{ listStyle: 'none', padding: 0 }}>
+    <div className="home-container">
+      <h1 className="home-title">{menu.date} Tarihli Menümüz</h1>
+
+      <div className="menu-grid">
         {menu.items.map(item => (
-          <li
-            key={item}
-            style={{
-              padding: '8px 12px',
-              border: '1px solid #ddd',
-              borderRadius: 4,
-              marginBottom: 8,
-            }}
-          >
+          <div key={item} className="menu-card">
             {item}
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
+
       {menu.calories != null && (
-        <p style={{ marginTop: 12, fontStyle: 'italic' }}>
+        <p className="home-calories">
           Toplam kalori: <strong>{menu.calories}</strong>
         </p>
       )}
 
-      {/* → Burada feedback bölümü */}
-      <div style={{ marginTop: 32, borderTop: '1px solid #eee', paddingTop: 16 }}>
-        <h2 style={{ marginBottom: 8 }}>Değerlendir</h2>
+      <section className="feedback-section">
+        <h2 className="feedback-title">Değerlendir</h2>
         <StarRating rating={rating} onChange={setRating} />
         <textarea
+          ref={commentRef}
+          className="feedback-textarea"
           placeholder="Yorumunuzu yazın"
           value={comment}
           onChange={e => setComment(e.target.value)}
-          style={{
-            width: '100%',
-            height: 80,
-            marginTop: 8,
-            padding: 8,
-            fontSize: 14,
-            border: '1px solid #ccc',
-            borderRadius: 4,
-          }}
         />
-        <button
-          onClick={saveFeedback}
-          style={{
-            marginTop: 12,
-            padding: '8px 16px',
-            background: '#1976d2',
-            color: '#fff',
-            border: 'none',
-            borderRadius: 4,
-            cursor: 'pointer',
-          }}
-        >
+        <button className="feedback-button" onClick={saveFeedback}>
           Kaydet
         </button>
-      </div>
+      </section>
     </div>
   );
 }
