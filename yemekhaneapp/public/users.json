@@ -4,8 +4,10 @@
     "password": "adminpass",
     "role": "admin",
     "firstName": "Ali",
-    "lastName": "Admin",
-    "department": "-"
+    "lastName": "Bulut",
+    "department": "",
+    "cardNumber": "",
+    "balance": 0
   },
   {
     "username": "220306019",
@@ -13,7 +15,9 @@
     "role": "student",
     "firstName": "Yusuf İslam",
     "lastName": "Yılmaz",
-    "department": "Bilgisayar Mühendisliği"
+    "department": "Bilgisayar Mühendisliği",
+    "cardNumber": "9A8A5710",
+    "balance": 150
   },
   {
     "username": "220306020",
@@ -21,7 +25,9 @@
     "role": "student",
     "firstName": "Ahmet",
     "lastName": "Kara",
-    "department": "Elektrik-Elektronik Mühendisliği"
+    "department": "Elektrik-Elektronik Mühendisliği",
+    "cardNumber": "3B7C2245",
+    "balance": 85
   },
   {
     "username": "220306021",
@@ -29,6 +35,8 @@
     "role": "student",
     "firstName": "Victor",
     "lastName": "Osimhen",
-    "department": "Gol Makinesi Mühendisliği"
+    "department": "Gol Makinesi Mühendisliği",
+    "cardNumber": "4F6D8921",
+    "balance": 40
   }
 ]

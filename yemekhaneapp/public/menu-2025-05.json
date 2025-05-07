@@ -1,8 +1,27 @@
 [
-    { "date": "2025-05-01", "items": ["Tarhana", "Tavuk Haşlama", "Bulgur", "Komposto"] },
-    { "date": "2025-05-02", "items": ["Ezogelin", "Et Sote", "Şehriyeli Pilav", "Ayran"] },
-    { "date": "2025-05-03", "items": ["Domates Çorbası", "Kuru Fasulye", "Pirinç Pilavı", "Salata"] },
-    { "date": "2025-05-04", "items": ["Yoğurt Çorbası", "Karnıyarık", "Bulgur", "Cacık"] },
-    { "date": "2025-05-05", "items": ["Mercimek Çorbası", "Izgara Köfte", "Pirinç Pilavı", "Ayran"] }
-  ]
-  
+  {
+    "date": "2025-05-01",
+    "items": ["Tarhana", "Tavuk Haşlama", "Bulgur", "Komposto"],
+    "calories": 750
+  },
+  {
+    "date": "2025-05-02",
+    "items": ["Ezogelin", "Et Sote", "Şehriyeli Pilav", "Ayran"],
+    "calories": 820
+  },
+  {
+    "date": "2025-05-03",
+    "items": ["Domates Çorbası", "Kuru Fasulye", "Pirinç Pilavı", "Salata"],
+    "calories": 900
+  },
+  {
+    "date": "2025-05-04",
+    "items": ["Yoğurt Çorbası", "Karnıyarık", "Bulgur", "Meyve"],
+    "calories": 780
+  },
+  {
+    "date": "2025-05-05",
+    "items": ["Mercimek Çorbası", "Izgara Köfte", "Pirinç Pilavı", "Ayran"],
+    "calories": 950
+  }
+]

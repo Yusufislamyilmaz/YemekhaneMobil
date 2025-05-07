@@ -26,49 +26,56 @@ export default function Profile() {
   }, [user]);
 
   if (loading) {
-    return (
-      <div className="profile-loading">
-        Profil yükleniyor…
-      </div>
-    );
+    return <div className="profile-loading">Profil yükleniyor…</div>;
   }
-
   if (!user) {
-    return (
-      <div className="profile-unauth">
-        Bu sayfayı görebilmek için lütfen giriş yapın.
-      </div>
-    );
+    return <div className="profile-unauth">Lütfen giriş yapın.</div>;
+  }
+  if (!profile) {
+    return <div className="profile-notfound">Profil bulunamadı.</div>;
   }
 
-  if (!profile) {
-    return (
-      <div className="profile-notfound">
-        Profil bulunamadı.
-      </div>
-    );
-  }
+  const isAdmin = profile.role === 'admin';
 
   return (
     <div className="profile-container">
       <h1 className="profile-title">Profilim</h1>
       <div className="profile-card">
-        <p className="profile-item">
-          <strong className="profile-label">Öğrenci No:</strong> {profile.username}
-        </p>
-        <p className="profile-item">
-          <strong className="profile-label">Ad Soyad:</strong> {profile.firstName} {profile.lastName}
-        </p>
-        <p className="profile-item">
-          <strong className="profile-label">Bölüm:</strong> {profile.department || '—'}
-        </p>
-        <p className="profile-item">
-          <strong className="profile-label">Rol:</strong> {profile.role === 'admin' ? 'Yönetici' : 'Öğrenci'}
-        </p>
-        <button
-          onClick={logout}
-          className="profile-logout-button"
-        >
+        {/* ADMIN ise sadece isim ve rol */}
+        {isAdmin ? (
+          <>
+            <p className="profile-item">
+              <strong className="profile-label">Ad Soyad:</strong>{' '}
+              {profile.firstName} {profile.lastName}
+            </p>
+            <p className="profile-item">
+              <strong className="profile-label">Rol:</strong>{' '}
+              {profile.role === 'admin' ? 'Yönetici' : 'Öğrenci'}
+            </p>
+          </>
+        ) : (
+          /* student ise tam detay */
+          <>
+            <p className="profile-item">
+              <strong className="profile-label">Öğrenci No:</strong>{' '}
+              {profile.username}
+            </p>
+            <p className="profile-item">
+              <strong className="profile-label">Ad Soyad:</strong>{' '}
+              {profile.firstName} {profile.lastName}
+            </p>
+            <p className="profile-item">
+              <strong className="profile-label">Bölüm:</strong>{' '}
+              {profile.department || '—'}
+            </p>
+            <p className="profile-item">
+              <strong className="profile-label">Rol:</strong>{' '}
+              {profile.role === 'admin' ? 'Yönetici' : 'Öğrenci'}
+            </p>
+          </>
+        )}
+
+        <button onClick={logout} className="profile-logout-button">
           Çıkış Yap
         </button>
       </div>

@@ -339,3 +339,132 @@ button:focus-visible {
   border-radius: 4px;
   cursor: pointer;
 }
+
+/* ------------------------------------------------------------
+   11) Card Tasarımı
+------------------------------------------------------------ */
+
+/* Container & başlık */
+.card-container {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+.card-title {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: rgb(var(--accent)); /* Accent renginiz */
+}
+
+/* Bilgi kutusu */
+.card-info-box {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 1.5rem;
+}
+
+/* Her satırın rengi */
+.card-info-item {
+  margin-bottom: 1rem;
+  color: #122241; /* Koyu lacivert */
+}
+
+/* Label (başlık) rengi */
+.card-info-label {
+  color: rgb(var(--accent)); /* Accent renginiz */
+}
+
+/* Yükleme kısmı */
+.card-load-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #122241;
+}
+.card-load-input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+.card-load-button {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.75rem;
+  background: rgb(var(--accent));
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+/* -------- Aylık Menü -------- */
+.monthly-container {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.monthly-title {
+  font-size: clamp(2rem, 6vw, 3rem);
+  text-align: center;
+  color: rgb(var(--accent));
+  margin-bottom: 1.5rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+}
+
+.monthly-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.day-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: left;
+}
+.day-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.day-date {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: rgb(var(--primary));
+  text-align: left;
+}
+
+.day-item {
+  margin-bottom: 0.25rem;
+  color: #333;
+  list-style: circle inside;
+  text-align: left;
+}
+
+.monthly-loading,
+.monthly-error {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+}
+.monthly-error {
+  color: tomato;
+}
+
+
+.day-calories {
+  margin-top: 0.5rem;
+  font-style: italic;
+  color: #666;
+  text-align: left;
+}
+.day-calories strong {
+  color: rgb(var(--accent));
+}

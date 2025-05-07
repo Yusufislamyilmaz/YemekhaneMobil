@@ -1,40 +1,49 @@
-// src/pages/MonthlyMenu.jsx
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function MonthlyMenu() {
   const [menus, setMenus]     = useState([]);
-  const [error, setError]     = useState('');
   const [loading, setLoading] = useState(true);
+  const [error, setError]     = useState('');
 
   useEffect(() => {
-    fetch('/menu-2025-05.json')
+    const now  = new Date();
+    const yyyy = now.getFullYear();
+    const mm   = String(now.getMonth() + 1).padStart(2, '0');
+    const file = `/menu-${yyyy}-${mm}.json`;
+
+    fetch(file)
       .then(res => {
-        if (!res.ok) throw new Error('Fetch failed');
+        if (!res.ok) throw new Error(`Dosya bulunamadı: ${file}`);
         return res.json();
       })
       .then(data => setMenus(data))
-      .catch(() => setError('Aylık menü yüklenemedi.'))
+      .catch(() => setError('Aylık menü yüklenirken bir hata oluştu.'))
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div style={{ padding:16 }}>Yükleniyor…</div>;
-  if (error)   return <div style={{ padding:16, color:'red' }}>{error}</div>;
+  if (loading) return <div className="monthly-loading">Yükleniyor…</div>;
+  if (error)   return <div className="monthly-error">{error}</div>;
 
   return (
-    <div style={{ maxWidth:600, margin:'0 auto', padding:16 }}>
-      <h1 style={{ marginBottom:12 }}>2025 Mayıs Aylık Menü</h1>
-      <ul style={{ listStyle:'none', padding:0 }}>
-        {menus.map(m => (
-          <li key={m.date} style={{ marginBottom:16 }}>
-            <h2 style={{ margin:0 }}>{m.date}</h2>
-            <ul style={{ margin:'4px 0 0 16px' }}>
-              {m.items.map(item => (
-                <li key={item}>• {item}</li>
+    <div className="monthly-container">
+      <h1 className="monthly-title">Aylık Menü</h1>
+      <div className="monthly-grid">
+        {menus.map(day => (
+          <div key={day.date} className="day-card">
+            <div className="day-date">{day.date}</div>
+            <ul>
+              {day.items.map(item => (
+                <li key={item} className="day-item">{item}</li>
               ))}
             </ul>
-          </li>
+            {typeof day.calories === 'number' && (
+              <p className="day-calories">
+                Toplam Kalori: <strong>{day.calories}</strong>
+              </p>
+            )}
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
